@@ -50,6 +50,16 @@ export class UsersService {
     return userWithOutPass;
   }
 
+  async findOneByEmail(email: string) {
+    const user = await this.usersRepository.findOneBy({ email: email });
+
+    if (!user) {
+      return new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+
+    return user; // WE RETURN THE WHOLE USER BECAUSE WE NEED THE HASHED PASWORD
+  }
+
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user = await this.findOne(id);
 
