@@ -78,7 +78,7 @@ export class UsersService {
       return new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    this.usersRepository.remove(user);
+    this.usersRepository.softRemove(user);
 
     return {
       message: 'User deleted',
