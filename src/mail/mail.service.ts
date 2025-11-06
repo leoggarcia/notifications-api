@@ -13,6 +13,10 @@ export class MailService {
                 <h1>¡Hola!</h1>
                 <p>${description}</p>
             `,
+    }).then(()=>{
+
+    }). catch((e)=>{
+        console.error("Sending email error:", e);
     });
   }
 }
