@@ -5,10 +5,14 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Notification } from './entities/notification.entity';
 import { UsersService } from 'src/users/users.service';
+import { Queue } from 'bullmq';
+import { InjectQueue } from '@nestjs/bullmq';
+import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class NotificationsService {
   constructor(
+    @InjectQueue('notifications') private notificationQueue: Queue,
     @InjectRepository(Notification)
     private notificationsRepository: Repository<Notification>,
     private userService: UsersService,
@@ -28,6 +32,9 @@ export class NotificationsService {
 
     const savesNotification =
       await this.notificationsRepository.save(newNotification);
+
+    // ADD NOTIFICATION TO THE QUEUE
+    await this.scheduleReminder(savesNotification, user);
 
     return savesNotification;
   }
@@ -87,5 +94,18 @@ export class NotificationsService {
     }
 
     return this.notificationsRepository.softRemove(notification);
+  }
+
+  async scheduleReminder(notification: Notification, user: Omit<User, 'password'>) {
+    const delay = notification.scheduled_date.getTime() - Date.now();
+
+    await this.notificationQueue.add(
+      'send-notification',
+      {
+        notification,
+        user,
+      },
+      { delay, attempts: 3 },
+    );
   }
 }

@@ -23,7 +23,7 @@ export class Notification {
   scheduled_date: Date;
 
   @Column()
-  notifiation_type: string; // THIS SHOULD BE AN ENUM BUT WE ARE USING SQLITE
+  notification_type: string; // THIS SHOULD BE AN ENUM BUT WE ARE USING SQLITE
 
   @ManyToOne(() => User, (user) => user.notifications)
   user: User;

@@ -9,9 +9,13 @@ export class CreateNotificationDto {
   @IsString()
   @IsNotEmpty()
   description: string;
-
+  
   @IsNotEmpty()
   @Type(() => Date)
   @IsDate()
   scheduled_date: Date;
+  
+  @IsString()
+  @IsNotEmpty()
+  notification_type: string
 }
