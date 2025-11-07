@@ -1,54 +1,103 @@
-📦 Instalación del entorno con Docker
+# Notifications API
 
-Este proyecto utiliza Redis para manejo de colas (BullMQ / Bull / NestJS).
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%233178C6.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%232496ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-✅ Requisitos
+This project is a REST API to handle the creation of notifications that can be scheduled to be sent in the future. It includes user management and authentication.
 
-Docker Desktop instalado
+## Features
 
-Node.js (v18 o superior)
+- **Notification Management**: Create, read, update, and delete notifications.
+- **Scheduling**: Schedule notifications to be sent at a future date and time.
+- **User Management**: Basic user creation and management.
+- **Authentication**: JWT-based authentication to protect endpoints.
+- **Multiple Channels**: Support for different notification channels like SMS and Email.
 
-Yarn o npm
+## Getting Started
 
-✅ Levantar dependencias (Redis)
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-Ejecuta:
+### Prerequisites
 
-docker compose up -d
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 
+### Installation
 
-Esto levantará:
+1.  Clone the repository:
+    ```bash
+    git clone <repository-url>
+    cd tech-home-challenge
+    ```
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
 
-Servicio	Puerto
-Redis	6379
+### Running the Application
 
-Verificar que está corriendo:
+The application uses Redis for its queueing system. You can start the required Redis instance using Docker.
 
-docker compose ps
+1.  **Start Redis service:**
+    This project uses Redis for handling queues (BullMQ). Run the following command to start the Redis container:
+    ```bash
+    docker-compose up -d
+    ```
+    This will start Redis on port `6379`.
 
-✅ Apagar servicios
-docker compose down
+2.  **Verify Redis is running:**
+    ```bash
+    docker-compose ps
+    ```
+    You can also ping Redis to ensure it's responsive:
+    ```bash
+    redis-cli ping
+    ```
+    It should respond with `PONG`.
 
-▶️ Ejecutar el proyecto NestJS
+3.  **Run the NestJS application:**
+    ```bash
+    npm run start:dev
+    ```
+    The application will be running on `http://localhost:3000`.
 
-Instalar dependencias
+4.  **Stopping services:**
+    To stop the Redis service, run:
+    ```bash
+    docker-compose down
+    ```
 
-npm install
+## Future Improvements
 
+This project has a solid foundation, but there are several ways it could be enhanced:
 
-o
+-   **Push Notifications**: Add a new notification channel for sending push notifications to mobile or web clients.
+-   **Dockerize the Application**: Create a `Dockerfile` for the NestJS application to make it fully portable and easier to deploy in different environments. This would allow running the entire stack (app + Redis) with a single `docker-compose up` command.
+-   **Configuration Management**: Improve configuration handling to better manage environment variables for different environments (development, staging, production).
+-   **More Comprehensive Testing**: Expand the test suite to include end-to-end tests and more detailed unit/integration tests for edge cases.
+-   **API Documentation**: Enhance API documentation using tools like Swagger for better developer experience.
 
-yarn
+## API Documentation (Swagger)
 
+This project includes API documentation generated with Swagger, providing a clear and interactive way to explore and test the available endpoints.
 
-Arrancar en desarrollo:
+To access the Swagger UI, navigate to:
 
-npm run start:dev
+```
+http://localhost:3000/api
+```
 
-🧪 Probar Redis
-redis-cli ping
+Here you can find detailed information about each endpoint, including accepted parameters, response structures, and authentication requirements. You can also make direct API calls from the browser.
 
+## Technologies Used
 
-Debe responder:
-
-PONG
+*   **Backend Framework**: NestJS
+*   **Language**: TypeScript
+*   **ORM**: TypeORM
+*   **Database**: SQLite
+*   **Queueing**: BullMQ
+*   **Testing**: Jest
+*   **Linting**: ESLint
+*   **Formatting**: Prettier
+*   **Containerization**: Docker (for Redis)
