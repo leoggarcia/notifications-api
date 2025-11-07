@@ -11,12 +11,14 @@ import { EmailChannel } from './channels/email.channel';
 import { NotificationChannelFactory } from './channels/notification-channel.factory';
 import { SmsChannel } from './channels/sms.channel';
 import { PushChannel } from './channels/push.channel';
+import { SmsModule } from 'src/sms/sms.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Notification]),
     UsersModule,
     MailModule,
+    SmsModule,
     BullModule.forRoot({
       connection: {
         host: 'localhost',

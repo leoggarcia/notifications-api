@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MailModule } from './mail/mail.module';
+import { SmsModule } from './sms/sms.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { MailModule } from './mail/mail.module';
     }),
     NotificationsModule,
     MailModule,
+    SmsModule,
   ],
   controllers: [],
   providers: [],

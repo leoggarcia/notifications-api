@@ -85,18 +85,30 @@ export class NotificationsService {
   }
 
   async remove(id: number, userId: number) {
-    const notification = await this.notificationsRepository.findOneBy({
-      id: id,
+    const notification = await this.notificationsRepository.findOne({
+      where: {
+        id: id,
+        user: {
+          id: userId,
+        },
+      },
+      relations: {
+        user: true,
+      },
     });
 
-    if (notification?.id !== userId) {
+    if (!notification) {
+      console.error('Notification not found');
       return new HttpException('Notification not found', HttpStatus.NOT_FOUND);
     }
 
     return this.notificationsRepository.softRemove(notification);
   }
 
-  async scheduleReminder(notification: Notification, user: Omit<User, 'password'>) {
+  async scheduleReminder(
+    notification: Notification,
+    user: Omit<User, 'password'>,
+  ) {
     const delay = notification.scheduled_date.getTime() - Date.now();
 
     await this.notificationQueue.add(
