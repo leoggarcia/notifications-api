@@ -1,4 +1,4 @@
-import { MailService } from 'src/mail/mail.service';
+import { MailService } from '../../mail/mail.service';
 import { NotificationsChannel } from './notification-channel.interface';
 import { Injectable } from '@nestjs/common';
 

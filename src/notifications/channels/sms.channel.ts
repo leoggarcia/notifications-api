@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { NotificationsChannel } from './notification-channel.interface';
-import { SmsService } from 'src/sms/sms.service';
+import { SmsService } from '../../sms/sms.service';
 
 @Injectable()
 export class SmsChannel implements NotificationsChannel {

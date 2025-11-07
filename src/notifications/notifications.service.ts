@@ -4,10 +4,10 @@ import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Notification } from './entities/notification.entity';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { Queue } from 'bullmq';
 import { InjectQueue } from '@nestjs/bullmq';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class NotificationsService {
@@ -98,7 +98,6 @@ export class NotificationsService {
     });
 
     if (!notification) {
-      console.error('Notification not found');
       return new HttpException('Notification not found', HttpStatus.NOT_FOUND);
     }
 
