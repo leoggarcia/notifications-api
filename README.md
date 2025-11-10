@@ -73,6 +73,7 @@ The application uses Redis for its queueing system. You can start the required R
 This project has a solid foundation, but there are several ways it could be enhanced:
 
 -   **Push Notifications**: Add a new notification channel for sending push notifications to mobile or web clients.
+-   **Migrations**: The ORM is being used with Synchronize insted of migrations.
 -   **Dockerize the Application**: Create a `Dockerfile` for the NestJS application to make it fully portable and easier to deploy in different environments. This would allow running the entire stack (app + Redis) with a single `docker-compose up` command.
 -   **Configuration Management**: Improve configuration handling to better manage environment variables for different environments (development, staging, production).
 -   **More Comprehensive Testing**: Expand the test suite to include end-to-end tests and more detailed unit/integration tests for edge cases.
